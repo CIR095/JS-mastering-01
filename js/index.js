@@ -1,26 +1,51 @@
 import p5 from 'https://cdn.skypack.dev/p5';
 import { Snake } from './snake.js';
 
+let centerTargets = false;
+let target = undefined;
+
 const sketch = (p) => {
     let snakes = [];
 
     p.setup = function() {
-        p.createCanvas(400, 300);
-        p.background(100);
+        const myDiv = document.getElementById('myCanvas');
+        var style = window.getComputedStyle(myDiv);
+        var paddingTop = parseInt(style.getPropertyValue('padding-top'), 10);
+        var paddingBottom = parseInt(style.getPropertyValue('padding-bottom'), 10);
+        var paddingLeft = parseInt(style.getPropertyValue('padding-left'), 10);
+        var paddingRight = parseInt(style.getPropertyValue('padding-right'), 10);
+        var widthWithoutPadding = myDiv.clientWidth - paddingLeft - paddingRight;
+        var heightWithoutPadding = myDiv.clientHeight - paddingTop - paddingBottom;
+        let cnv = p.createCanvas(widthWithoutPadding, heightWithoutPadding);
+        cnv.parent('myCanvas');
 
-        for(let i = 0; i < 4; i++) {
-            snakes.push(new Snake(p, 10, p.createVector(Math.random()*p.width, Math.random()*p.height)));
+        for(let i = 0; i < 10; i++) {
+            snakes.push(new Snake(p, 20, p.createVector(Math.random()*p.width, Math.random()*p.height)));
         }
-        console.log(snakes);
     };
 
     p.draw = function() {
-        p.background(100);
-
+        p.background(70);
+        if(centerTargets) {
+            target = p.createVector(p.mouseX, p.mouseY);
+        }
         for(let i = 0; i < snakes.length; i++) {
-            snakes[i].update();
+            snakes[i].update(target);
             snakes[i].show();
         }
     };
 };
 new p5(sketch);
+
+
+document.addEventListener('mousedown', function(event) {
+    if (event.button === 0) {
+        centerTargets = true;
+    }
+});
+document.addEventListener('mouseup', function(event) {
+    if (event.button === 0) {
+        centerTargets = false;
+        target = undefined;
+    }
+});

@@ -2,3 +2,12 @@
     border: 0;
     padding: 0;
 }
+
+#myCanvas {
+    display: block; /* for example, to prevent scrollbars */
+    margin: auto; /* center the canvas */
+    border: 1px solid black; /* just for visibility */
+    width: 400px;
+    height: 300px;
+    padding: 5px;
+}
