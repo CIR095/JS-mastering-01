@@ -1,3 +1,5 @@
 # JS-mastering-01
-basic js functionalities
-snake environment
+Snake environment
+
+# What I learned
+- basic js functionalities
