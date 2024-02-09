@@ -6,28 +6,28 @@ export class Segment {
         this.parent;
 
         this.angle = 0;
-        this.len = 20;
+        this.len = 3;
 
         if(parent instanceof Segment) {
             this.parent = parent;
         }
-        this.target = this.setTarget();
+        this.target = this.setTarget(p.createVector(100,100));
 
         this.head = p.createVector(this.target.x, this.target.y);
         this.end = p.createVector(this.target.x - this.len * Math.cos(this.angle), this.target.y - this.len * Math.sin(this.angle));
     }
 
-    setTarget() {
+    setTarget(target) {
         if(this.parent instanceof Segment) {
             return this.p.createVector(this.parent.end.x, this.parent.end.y);
         }
         else {
-            return this.p.createVector(this.p.mouseX, this.p.mouseY);
+            return this.p.createVector(target.x, target.y);
         }
     }
 
-    follow() {
-        this.target = this.setTarget();
+    follow(target) {
+        this.target = this.setTarget(target);
 
         const dir = p5.Vector.sub(this.target, this.end);
         dir.setMag(this.len);
@@ -41,6 +41,5 @@ export class Segment {
 
     show() {
         this.p.line(this.end.x, this.end.y, this.head.x, this.head.y);
-        this.p.ellipse(this.end.x, this.end.y, 5, 5);
     }
 }
