@@ -32,6 +32,11 @@ const sketch = (p) => {
         for(let i = 0; i < snakes.length; i++) {
             snakes[i].update(target);
             snakes[i].show();
+
+            if(p.dist(p.mouseX, p.mouseY, snakes[i].head.pos.x, snakes[i].head.pos.y) < 10) {
+                p.fill(255);
+                p.text(snakes[i].color, snakes[i].head.pos.x, snakes[i].head.pos.y);
+            }
         }
     };
 };
