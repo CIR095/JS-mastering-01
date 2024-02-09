@@ -1,30 +1,26 @@
 import p5 from 'https://cdn.skypack.dev/p5';
 import { Snake } from './snake.js';
 
-let xoff = 0;
-let yoff = 0;
-
 const sketch = (p) => {
-    let snake;
+    let snakes = [];
 
     p.setup = function() {
         p.createCanvas(400, 300);
         p.background(100);
 
-        snake = new Snake(p, 10);
+        for(let i = 0; i < 4; i++) {
+            snakes.push(new Snake(p, 10, p.createVector(Math.random()*p.width, Math.random()*p.height)));
+        }
+        console.log(snakes);
     };
 
     p.draw = function() {
         p.background(100);
 
-        let nx = p.noise(xoff) * p.width;
-        let ny = p.noise(yoff*4) * p.height;
-
-        snake.update(p.createVector(nx, ny));
-        snake.show();
-
-        xoff += 0.01;
-        yoff += 0.01;
+        for(let i = 0; i < snakes.length; i++) {
+            snakes[i].update();
+            snakes[i].show();
+        }
     };
 };
 new p5(sketch);

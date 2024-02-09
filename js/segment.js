@@ -11,7 +11,7 @@ export class Segment {
         if(parent instanceof Segment) {
             this.parent = parent;
         }
-        this.target = this.setTarget(p.createVector(100,100));
+        this.target = this.setTarget(parent);
 
         this.head = p.createVector(this.target.x, this.target.y);
         this.end = p.createVector(this.target.x - this.len * Math.cos(this.angle), this.target.y - this.len * Math.sin(this.angle));
