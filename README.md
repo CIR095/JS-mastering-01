@@ -3,3 +3,4 @@ Snake environment
 
 # What I learned
 - basic js functionalities
+- inverse kinematics
